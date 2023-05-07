@@ -6,6 +6,8 @@ import 'package:shortform/authentication/registration_screen.dart';
 import 'package:shortform/widgets/input_text_widget.dart';
 import 'package:simple_circular_progress_bar/simple_circular_progress_bar.dart';
 
+import 'authentication_controller.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -17,6 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailTextEditingController = TextEditingController();
   TextEditingController passwordTextEditingController = TextEditingController();
   bool showProgressBar = false;
+  var authenticationController = AuthenticationController.instanceAuth;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,10 +95,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           child: InkWell(
                             onTap: () {
-                              setState(() {
-                                showProgressBar = true;
-                              });
+
                               //login user now
+                              if(emailTextEditingController.text.isNotEmpty && passwordTextEditingController.text.isNotEmpty){
+                                setState(() {
+                                  showProgressBar = true;
+                                });
+                                authenticationController.loginUserNow(emailTextEditingController.text, passwordTextEditingController.text);
+                              }
                             },
                             child: const Center(
                               child: Text(
