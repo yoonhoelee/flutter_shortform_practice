@@ -31,4 +31,8 @@ class AuthenticationController extends GetxController {
     }
     _pickedFile = Rx<File?>(File(pickedImageFile!.path));
   }
+
+  void createAccountForNewUser(File imageFile, String userName, String userEmail, String userPassword){
+    //create user in the firebase authentication
+  }
 }

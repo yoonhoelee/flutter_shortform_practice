@@ -5,6 +5,7 @@ import 'package:shortform/authentication/authentication_controller.dart';
 import 'package:shortform/authentication/login_screen.dart';
 import 'package:simple_circular_progress_bar/simple_circular_progress_bar.dart';
 
+import '../global.dart';
 import '../widgets/input_text_widget.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -18,7 +19,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   TextEditingController userNameTextEditingController = TextEditingController();
   TextEditingController emailTextEditingController = TextEditingController();
   TextEditingController passwordTextEditingController = TextEditingController();
-  bool showProgressBar = false;
+
   var authenticationController = AuthenticationController.instanceAuth;
   @override
   Widget build(BuildContext context) {
@@ -104,7 +105,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               showProgressBar == false
                   ? Column(
                       children: [
-                        //login button
+                        //create button
                         Container(
                           width: MediaQuery.of(context).size.width - 38,
                           height: 54,
@@ -119,7 +120,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               setState(() {
                                 showProgressBar = true;
                               });
-                              //login user now
+                              if(authenticationController.profileImage != null && userNameTextEditingController.text.isNotEmpty && emailTextEditingController.text.isNotEmpty && passwordTextEditingController.text.isNotEmpty){
+                                //create user now
+                                authenticationController.createAccountForNewUser(authenticationController.profileImage!, userNameTextEditingController.text, emailTextEditingController.text, passwordTextEditingController.text);
+                                setState(() {
+                                  showProgressBar = true;
+                                });
+                              }
                             },
                             child: const Center(
                               child: Text(

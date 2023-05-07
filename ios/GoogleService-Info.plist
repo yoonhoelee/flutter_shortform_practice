@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>1053806247063-vqmv0qun5h1t6b6qmqstu752nlf8qs5h.apps.googleusercontent.com</string>
+	<string>927208923132-4hhn37r74vs6c57hei4b3imt4be474rs.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1053806247063-vqmv0qun5h1t6b6qmqstu752nlf8qs5h</string>
+	<string>com.googleusercontent.apps.927208923132-4hhn37r74vs6c57hei4b3imt4be474rs</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDo-N1G2ub16QYde3mMMjdFlHRIUGPxayU</string>
+	<string>AIzaSyD0D9D_xbIDNvYHIgZoVeLj9g7W0v-eRU8</string>
 	<key>GCM_SENDER_ID</key>
-	<string>1053806247063</string>
+	<string>927208923132</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.adamlee.streamerclone</string>
+	<string>com.example.shortform</string>
 	<key>PROJECT_ID</key>
-	<string>tiktok-clone-app-e9a1c</string>
+	<string>tiktok-clone-74a29</string>
 	<key>STORAGE_BUCKET</key>
-	<string>tiktok-clone-app-e9a1c.appspot.com</string>
+	<string>tiktok-clone-74a29.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1053806247063:ios:b19b581e9c340f7f193dd2</string>
+	<string>1:927208923132:ios:789339037a4ce4ec31dc79</string>
 </dict>
 </plist>
