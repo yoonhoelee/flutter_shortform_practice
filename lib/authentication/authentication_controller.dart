@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:shortform/authentication/login_screen.dart';
 import 'package:shortform/authentication/registration_screen.dart';
 import 'package:shortform/global.dart';
+import 'package:shortform/home/home_screen.dart';
 
 import 'user.dart' as userModel;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -12,6 +13,7 @@ import 'package:image_picker/image_picker.dart';
 
 class AuthenticationController extends GetxController {
   static AuthenticationController instanceAuth = Get.find();
+  late Rx<User?> _currentUser;
   late Rx<File?> _pickedFile;
   File? get profileImage => _pickedFile.value;
 
@@ -52,7 +54,6 @@ class AuthenticationController extends GetxController {
       await FirebaseFirestore.instance.collection("users").doc(credential.user!.uid).set(user.toJson());
       Get.snackbar("Account Created", "Your account has been created successfully");
       showProgressBar = false;
-      Get.to(LoginScreen());
     }catch(error){
       Get.snackbar("Account Creation Unsuccessful", "Error occured, password needs to be longer than 6 characters");
       showProgressBar = false;
@@ -72,11 +73,28 @@ class AuthenticationController extends GetxController {
       await FirebaseAuth.instance.signInWithEmailAndPassword(email: userEmail, password: userPassword);
       Get.snackbar("Logged in", "You have logged in successfully");
       showProgressBar = false;
-      Get.to(RegistrationScreen());
     }catch(error){
       Get.snackbar("Login Unsuccessful", "Error occurred during authentication");
       showProgressBar = false;
       Get.to(LoginScreen());
     }
+  }
+
+  goToScreen(User? currentUser){
+    if(currentUser == null){
+      //when user is not logged in send to login screen
+      Get.offAll(LoginScreen());
+    }else{
+      // when user is logged in
+      Get.offAll(HomeScreen());
+    }
+  }
+
+  @override
+  void onReady(){
+    super.onReady();
+    _currentUser = Rx<User?>(FirebaseAuth.instance.currentUser);
+    _currentUser.bindStream(FirebaseAuth.instance.authStateChanges());
+    ever(_currentUser, goToScreen);
   }
 }
