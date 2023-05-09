@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shortform/global.dart';
+import 'package:shortform/home/upload_video/upload_controller.dart';
 import 'package:simple_circular_progress_bar/simple_circular_progress_bar.dart';
 import 'package:video_player/video_player.dart';
 
@@ -21,6 +23,7 @@ class UploadForm extends StatefulWidget {
 }
 
 class _UploadFormState extends State<UploadForm> {
+  UploadController uploadVideoController = Get.put(UploadController());
   VideoPlayerController? playerController;
   TextEditingController artistSongTextEditingController =
       TextEditingController();
@@ -74,7 +77,7 @@ class _UploadFormState extends State<UploadForm> {
                         Colors.amber,
                         Colors.purpleAccent,
                       ],
-                      animationDuration: 3,
+                      animationDuration: 5,
                       backColor: Colors.white38,
                     ),
                   )
@@ -89,7 +92,7 @@ class _UploadFormState extends State<UploadForm> {
                                 artistSongTextEditingController,
                             labelString: "Artist - Song",
                             iconData: Icons.music_video_sharp,
-                            isObscure: true),
+                            isObscure: false),
                       ),
                       const SizedBox(
                         height: 10,
@@ -103,7 +106,7 @@ class _UploadFormState extends State<UploadForm> {
                                 descriptionTagsTextEditingController,
                             labelString: "Description - Tags",
                             iconData: Icons.slideshow_sharp,
-                            isObscure: true),
+                            isObscure: false),
                       ),
                       const SizedBox(
                         height: 10,
@@ -119,10 +122,17 @@ class _UploadFormState extends State<UploadForm> {
                           ),
                         ),
                         child: InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            setState(() {
+                              if(artistSongTextEditingController.text.isNotEmpty && descriptionTagsTextEditingController.text.isNotEmpty){
+                                uploadVideoController.saveVideoInformationToFirestoreDatabase(artistSongTextEditingController.text, descriptionTagsTextEditingController.text, widget.videoPath, context);
+                              }
+                              showProgressBar = true;
+                            });
+                          },
                           child: const Center(
                             child: Text(
-                              "Upload Up",
+                              "Upload Now",
                               style: TextStyle(
                                 fontSize: 20,
                                 color: Colors.black,
